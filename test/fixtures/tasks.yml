@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: task one
+  date: 2018-09-18
+  mark: 0
+  category: one
+
+two:
+  name: task two
+  date: 2018-09-18
+  mark: 0
+  category: one
+
+three:
+  name: task three
+  date: 2018-09-18
+  mark: 0
+  category: two
+
+four:
+  name: task four
+  date: 2018-09-18
+  mark: 0
+  category: three
