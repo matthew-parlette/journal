@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :tasks
   resources :categories do
     resources :tasks
+    resources :events
+    resources :notes
   end
   devise_for :users
   get 'welcome/index'
