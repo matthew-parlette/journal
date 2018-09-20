@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes
   resources :events
   resources :tasks
   resources :categories do

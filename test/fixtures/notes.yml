@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: note one
+  date: 2018-09-20
+  category: one
+
+two:
+  name: note two
+  date: 2018-09-20
+  category: two
+
+three:
+  name: note three
+  date: 2018-09-20
+  category: three
