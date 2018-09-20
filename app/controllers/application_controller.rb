@@ -14,6 +14,15 @@ class ApplicationController < ActionController::Base
         return false
       end
     end
+
+    if object.has_attribute? "category_id"
+      @category = Category.find(object.category_id)
+      if @category.user_id == current_user.id
+        return true
+      else
+        return false
+      end
+    end
   end
 
   private
