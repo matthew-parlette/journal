@@ -70,4 +70,20 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
       post notes_url, params: { note: { category_id: @unowned_note.category_id, date: @unowned_note.date, name: @unowned_note.name } }
     end
   end
+
+  test "should get notes index through category" do
+    get category_notes_url(categories(:one))
+    assert_response :success
+    assert_equal 1, assigns(:notes).count
+  end
+
+  test "should show note through category" do
+    get category_note_url(categories(:one), @note)
+    assert_response :success
+  end
+
+  test "should not get notes index through unowned category" do
+    get category_notes_url(categories(:three))
+    assert_response 403
+  end
 end

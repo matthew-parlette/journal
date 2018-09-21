@@ -70,4 +70,20 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       post tasks_url, params: { task: { category_id: @unowned_task.category_id, date: @unowned_task.date, mark: @unowned_task.mark, name: @unowned_task.name } }
     end
   end
+
+  test "should get tasks index through category" do
+    get category_tasks_url(categories(:one))
+    assert_response :success
+    assert_equal 2, assigns(:tasks).count
+  end
+
+  test "should show task through category" do
+    get category_task_url(categories(:one), @task)
+    assert_response :success
+  end
+
+  test "should not get tasks index through unowned category" do
+    get category_tasks_url(categories(:three))
+    assert_response 403
+  end
 end

@@ -27,6 +27,19 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_category
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      if user_can_view(@category)
+        return
+      else
+        @category = nil
+        raise ApplicationController::NotAuthorized
+      end
+    end
+    @category = nil
+  end
+
   def render_error_page(status:, text:, template: 'errors/routing')
     respond_to do |format|
       format.json { render json: {errors: [message: "#{status} #{text}"]}, status: status }

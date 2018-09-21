@@ -70,4 +70,20 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       post events_url, params: { event: { category_id: @unowned_event.category_id, date: @unowned_event.date, name: @unowned_event.name } }
     end
   end
+
+  test "should get events index through category" do
+    get category_events_url(categories(:one))
+    assert_response :success
+    assert_equal 1, assigns(:events).count
+  end
+
+  test "should show event through category" do
+    get category_event_url(categories(:one), @event)
+    assert_response :success
+  end
+
+  test "should not get events index through unowned category" do
+    get category_events_url(categories(:three))
+    assert_response 403
+  end
 end

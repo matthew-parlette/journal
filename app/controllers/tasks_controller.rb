@@ -1,17 +1,22 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:index, :show, :edit, :update, :destroy]
+  before_action :verify_access, only: [:index, :show, :edit, :update, :destroy]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.includes(:category).where(categories: {user_id: current_user.id})
+    if @category
+      @tasks = Task.includes(:category).where(category: @category)
+    else
+      @tasks = Task.includes(:category).where(categories: {user_id: current_user.id})
+    end
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    raise ApplicationController::NotAuthorized unless user_can_view(@task)
   end
 
   # GET /tasks/new
@@ -21,7 +26,6 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    raise ApplicationController::NotAuthorized unless user_can_view(@task)
   end
 
   # POST /tasks
@@ -30,7 +34,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     # Make sure the user owns this category
-    raise ApplicationController::NotAuthorized unless user_can_view(@task)
+    verify_access
 
     respond_to do |format|
       if @task.save
@@ -46,7 +50,6 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    raise ApplicationController::NotAuthorized unless user_can_view(@task)
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
@@ -61,7 +64,6 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    raise ApplicationController::NotAuthorized unless user_can_view(@task)
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
@@ -78,5 +80,14 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:name, :date, :mark, :category_id)
+    end
+
+    def verify_access
+      if @category
+        raise ApplicationController::NotAuthorized unless user_can_view(@category)
+      end
+      if @task
+        raise ApplicationController::NotAuthorized unless user_can_view(@task)
+      end
     end
 end
