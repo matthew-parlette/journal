@@ -23,12 +23,12 @@
 
   <div class="field">
     <%= form.label :mark %>
-    <%= form.text_field :mark, id: :task_mark %>
+    <%= form.select :mark, Task.marks.map {|mark| [mark[0].titleize, mark[1]]}, id: :task_mark %>
   </div>
 
   <div class="field">
     <%= form.label :category_id %>
-    <%= form.text_field :category_id, id: :task_category_id %>
+    <%= form.collection_select :category_id, Category.where(user: current_user).order(:name), :id, :name, include_blank: true, id: :task_category_id %>
   </div>
 
   <div class="actions">
