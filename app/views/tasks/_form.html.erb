@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :mark %>
-    <%= form.select :mark, Task.marks.map {|mark| [mark[0].titleize, mark[1]]}, id: :task_mark %>
+    <%= form.select :mark, Task.marks.map {|mark| [mark[0].titleize, mark[0]]}, id: :task_mark %>
   </div>
 
   <div class="field">
