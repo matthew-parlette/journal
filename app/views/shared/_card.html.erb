@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-header" id="heading-<%= item.id %>">
+    <h5 class="mb-0">
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse-<%= item.id %>" aria-expanded="true" aria-controls="collapse-<%= item.id %>">
+        <%= item.name %>
+      </button>
+    </h5>
+  </div>
+
+  <div id="collapse-<%= item.id %>" class="collapse" aria-labelledby="heading-<%= item.id %>" data-parent="#cards">
+    <div class="card-body">
+      Created: <%= item.created_at %>
+    </div>
+  </div>
+</div>

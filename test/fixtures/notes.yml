@@ -2,15 +2,15 @@
 
 one:
   name: note one
-  date: 2018-09-20
+  date: <%= Date.today %>
   category: one
 
 two:
   name: note two
-  date: 2018-09-20
+  date: <%= Date.today %>
   category: two
 
 three:
   name: note three
-  date: 2018-09-20
+  date: <%= Date.today %>
   category: three

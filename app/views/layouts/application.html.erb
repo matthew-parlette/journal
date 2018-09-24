@@ -25,9 +25,31 @@
           <li class="nav-item">
             <%= link_to "Categories", categories_path, class: "nav-link" %>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+          <% if user_signed_in? %>
+          <% user_categories = Category.where(user: current_user) %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="todayDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Today
+            </a>
+            <div class="dropdown-menu" aria-labelledby="todayDropdown">
+              <a class="dropdown-item" href="#">All</a>
+              <div class="dropdown-divider"></div>
+              <% user_categories.each do |c| %>
+                <%= link_to c.name, today_category_path(c), class: "dropdown-item" %>
+              <% end %>
+            </div>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="addDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Add
+            </a>
+            <div class="dropdown-menu" aria-labelledby="addDropdown">
+              <%= link_to "Task", new_task_path, class: "dropdown-item" %>
+              <%= link_to "Event", new_event_path, class: "dropdown-item" %>
+              <%= link_to "Note", new_note_path, class: "dropdown-item" %>
+            </div>
+          </li>
+          <% end %>
         </ul>
         <!--<form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -44,6 +66,8 @@
           </ul>
       </div>
     </nav>
+    <div class="container">
     <%= yield %>
+    </div>
   </body>
 </html>

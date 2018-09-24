@@ -2,24 +2,24 @@
 
 one:
   name: task one
-  date: 2018-09-18
+  date: <%= Date.today %>
   mark: 0
   category: one
 
 two:
   name: task two
-  date: 2018-09-18
+  date: <%= 1.day.ago.to_s %>
   mark: 0
   category: one
 
 three:
   name: task three
-  date: 2018-09-18
+  date: <%= Date.today %>
   mark: 0
   category: two
 
 four:
   name: task four
-  date: 2018-09-18
+  date: <%= Date.today %>
   mark: 0
   category: three

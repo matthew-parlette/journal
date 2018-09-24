@@ -59,4 +59,16 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "today should only show today's items" do
+    get today_category_url(@category)
+    assert_response :success
+    assert_equal 1, assigns(:tasks).count, "Wrong number of tasks returned"
+    assert_equal 1, assigns(:events).count, "Wrong number of events returned"
+    assert_equal 1, assigns(:notes).count, "Wrong number of notes returned"
+  end
+
+  test "should not be able to get today for unowned category" do
+    get today_category_url(categories(:three))
+    assert_response 403
+  end
 end

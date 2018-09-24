@@ -2,15 +2,15 @@
 
 one:
   name: event one
-  date: 2018-09-20
+  date: <%= Date.today %>
   category: one
 
 two:
   name: event two
-  date: 2018-09-20
+  date: <%= Date.today %>
   category: two
 
 three:
   name: event three
-  date: 2018-09-20
+  date: <%= Date.today %>
   category: three

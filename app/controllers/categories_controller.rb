@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy, :today]
+  before_action :verify_access, only: [:show, :edit, :update, :destroy, :today]
 
   # GET /categories
   # GET /categories.json
@@ -11,7 +12,6 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    raise ApplicationController::NotAuthorized unless user_can_view(@category)
   end
 
   # GET /categories/new
@@ -21,7 +21,6 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
-    raise ApplicationController::NotAuthorized unless user_can_view(@category)
   end
 
   # POST /categories
@@ -43,7 +42,6 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-    raise ApplicationController::NotAuthorized unless user_can_view(@category)
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }
@@ -58,12 +56,19 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    raise ApplicationController::NotAuthorized unless user_can_view(@category)
     @category.destroy
     respond_to do |format|
       format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /categories/1/today
+  def today
+    @tasks = Task.includes(:category).where(category: @category, date: Date.today)
+    @events = Event.includes(:category).where(category: @category, date: Date.today)
+    @notes = Note.includes(:category).where(category: @category, date: Date.today)
+    @items = @tasks + @events + @notes
   end
 
   private
@@ -75,5 +80,11 @@ class CategoriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
       params.require(:category).permit(:name, :user_id)
+    end
+
+    def verify_access
+      if @category
+        raise ApplicationController::NotAuthorized unless user_can_view(@category)
+      end
     end
 end
