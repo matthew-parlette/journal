@@ -1,10 +1,45 @@
 <div class="card">
   <div class="card-header" id="heading-<%= item.id %>">
-    <h5 class="mb-0">
-      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse-<%= item.id %>" aria-expanded="true" aria-controls="collapse-<%= item.id %>">
-        <%= item.name %>
-      </button>
-    </h5>
+    <div class="row">
+      <div class="col-sm-9">
+        <span>
+          <% if item.class.name == "Task" %>
+            <% if item.not_marked? %>
+              <i class="fa fa-square-o fa-fw"></i>
+            <% elsif item.done? %>
+              <i class="fa fa-check-square-o fa-fw"></i>
+            <% end %>
+          <% elsif item.class.name == "Event" %>
+            <i class="fa fa-circle-o fa-fw"></i>
+          <% elsif item.class.name == "Note" %>
+            <i class="fa fa-minus fa-fw"></i>
+          <% end %>
+        </span>
+        <a data-toggle="collapse" data-target="#collapse-<%= item.id %>" aria-expanded="true" aria-controls="collapse-<%= item.id %>">
+          <%= item.name %>
+        </a>
+      </div>
+      <div class="col-sm-3">
+        <!--
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <% if item.has_attribute? "mark" %>
+          <div class="btn-group btn-group-sm mr-2" role="group" aria-label="Marks">
+            <button type="button" class="btn btn-outline-success"><i class="fa fa-check"></i></button>
+            <button type="button" class="btn btn-outline-info"><i class="fa fa-spinner"></i></button>
+            <button type="button" class="btn btn-outline-info"><i class="fa fa-arrow-right"></i></button>
+            <button type="button" class="btn btn-outline-info"><i class="fa fa-times"></i></button>
+          </div>
+          <% end %>
+          <div class="btn-group btn-group-sm mr-2" role="group" aria-label="Second group">
+            <button type="button" class="btn btn-secondary">3</button>
+          </div>
+          <div class="btn-group btn-group-sm" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-secondary">4</button>
+          </div>
+        </div>
+        -->
+      </div>
+    </div>
   </div>
 
   <div id="collapse-<%= item.id %>" class="collapse" aria-labelledby="heading-<%= item.id %>" data-parent="#cards">
