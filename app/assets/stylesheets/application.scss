@@ -14,3 +14,10 @@
 
 @import 'bootstrap';
 @import 'font-awesome';
+@import 'menu';
+
+$primary: #4183c4;
+
+.navbar {
+  background-color: $primary;
+}
