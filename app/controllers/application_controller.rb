@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     end
 
     if object.has_attribute? "category_id"
-      return true unless object[:category_id].is_a? Numeric # Let model validation handle this
+      return true unless object[:category_id].is_a? Numeric # Category not provided, let model validation handle this
       @category = Category.find(object.category_id)
       if @category.user_id == current_user.id
         return true
