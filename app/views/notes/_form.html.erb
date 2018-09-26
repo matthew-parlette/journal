@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :category_id %>
-    <%= form.collection_select :category_id, Category.where(user: current_user).order(:name), :id, :name, include_blank: true, id: :note_category_id %>
+    <%= form.collection_select :category_id, Category.where(user: current_user).order(:name), :id, :name, include_blank: true, id: :note_category_id, selected: session[:category_id] %>
   </div>
 
   <div class="actions">
