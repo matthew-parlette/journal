@@ -15,4 +15,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require shortcut
 //= require_tree .
