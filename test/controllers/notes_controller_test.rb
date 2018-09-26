@@ -86,4 +86,11 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     get category_notes_url(categories(:three))
     assert_response 403
   end
+
+  test "should not accept note without a category" do
+    assert_no_difference('Note.count') do
+      post notes_url, params: { note: { date: @unowned_note.date, name: @unowned_note.name } }
+      assert_includes assigns(:note).errors.messages[:category], "must exist", "Validation error did not state that the category is required"
+    end
+  end
 end

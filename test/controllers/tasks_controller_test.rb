@@ -86,4 +86,11 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     get category_tasks_url(categories(:three))
     assert_response 403
   end
+
+  test "should not accept task without a category" do
+    assert_no_difference('Task.count') do
+      post tasks_url, params: { task: { date: @unowned_task.date, mark: @unowned_task.mark, name: @unowned_task.name } }
+      assert_includes assigns(:task).errors.messages[:category], "must exist", "Validation error did not state that the category is required"
+    end
+  end
 end

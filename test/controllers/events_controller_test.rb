@@ -86,4 +86,11 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     get category_events_url(categories(:three))
     assert_response 403
   end
+
+  test "should not accept event without a category" do
+    assert_no_difference('Event.count') do
+      post events_url, params: { event: { date: @unowned_event.date, name: @unowned_event.name } }
+      assert_includes assigns(:event).errors.messages[:category], "must exist", "Validation error did not state that the category is required"
+    end
+  end
 end
