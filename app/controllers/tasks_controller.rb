@@ -17,6 +17,10 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    respond_to do |format|
+      format.html {}
+      format.js { render partial: "shared/card", locals: { item: @task }  }
+    end
   end
 
   # GET /tasks/new
