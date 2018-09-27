@@ -8,6 +8,12 @@
               <i class="fa fa-square-o fa-fw" data-action="mark-done" data-item-id="<%= item.id %>"></i>
             <% elsif item.done? %>
               <i class="fa fa-check-square-o fa-fw" data-action="mark-nothing" data-item-id="<%= item.id %>"></i>
+            <% elsif item.rescheduled? %>
+              <i class="fa fa-chevron-right fa-fw" data-action="mark-rescheduled" data-item-id="<%= item.id %>"></i>
+            <% elsif item.progressed? %>
+              <i class="fa fa-step-forward fa-fw" data-action="mark-progressed" data-item-id="<%= item.id %>"></i>
+            <% elsif item.cancelled? %>
+              <i class="fa fa-times fa-fw" data-action="mark-cancelled" data-item-id="<%= item.id %>"></i>
             <% end %>
           <% elsif item.class.name == "Event" %>
             <i class="fa fa-circle-o fa-fw"></i>
@@ -27,6 +33,28 @@
   <div id="collapse-<%= item.id %>" class="collapse" aria-labelledby="heading-<%= item.id %>" data-parent="#cards">
     <div class="card-body">
       Created: <%= item.created_at %>
+      <br><br>
+      <% if item.has_attribute? "mark" %>
+      Status: <b><%= item.mark.titleize %></b> |
+        <% if ! item.not_marked? %>
+        <i class="fa fa-square-o fa-fw" data-action="mark-nothing" data-item-id="<%= item.id %>"></i>
+        <% end %>
+        <% if ! item.done? %>
+        <i class="fa fa-check fa-fw" data-action="mark-done" data-item-id="<%= item.id %>"></i>
+        <% end %>
+        <% if ! item.rescheduled? %>
+        <i class="fa fa-chevron-right fa-fw" data-action="mark-rescheduled" data-item-id="<%= item.id %>"></i>
+        <% end %>
+        <% if ! item.progressed? %>
+        <i class="fa fa-step-forward fa-fw" data-action="mark-progressed" data-item-id="<%= item.id %>"></i>
+        <% end %>
+        <% if ! item.cancelled? %>
+        <i class="fa fa-times fa-fw" data-action="mark-cancelled" data-item-id="<%= item.id %>"></i>
+        <% end %>
+      <% else %>
+      Status: <b>Active</b>
+      <% end %>
+      <br><br>
     </div>
   </div>
 </div>

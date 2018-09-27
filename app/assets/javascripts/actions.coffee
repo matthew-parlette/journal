@@ -12,6 +12,21 @@ $(document).on 'click', '[data-action="mark-nothing"]', ->
   console.log "Marking #{id} as not_marked..."
   mark_task $(this), id, "not_marked"
 
+$(document).on 'click', '[data-action="mark-rescheduled"]', ->
+  id = $(this).data('itemId')
+  console.log "Marking #{id} as rescheduled..."
+  mark_task $(this), id, "rescheduled"
+
+$(document).on 'click', '[data-action="mark-progressed"]', ->
+  id = $(this).data('itemId')
+  console.log "Marking #{id} as progressed..."
+  mark_task $(this), id, "progressed"
+
+$(document).on 'click', '[data-action="mark-cancelled"]', ->
+  id = $(this).data('itemId')
+  console.log "Marking #{id} as cancelled..."
+  mark_task $(this), id, "cancelled"
+
 mark_task = (icon, id, mark) ->
   $.ajax "/tasks/#{id}",
     type: 'PATCH',
