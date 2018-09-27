@@ -2,27 +2,17 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-# Task mark mapping:
-# 0: Not Marked
-# 1: Rescheduled
-# 2: Progressed
-# 3: Done
-# 4: Cancelled
-
-$(document).on 'click', '.item-icon', ->
-  icon = $(this).find('i')
-  currentMark = icon.data('currentMark')
+$(document).on 'click', '[data-action="mark-done"]', ->
   id = $(this).data('itemId')
-  console.log currentMark
-  switch currentMark
-    when 'task-not-marked'
-      console.log "Marking task #{id} as done"
-      mark_task icon, id, "done"
-    when 'task-done'
-      console.log "Marking task #{id} as not_marked"
-      mark_task icon, id, "not_marked"
+  console.log "Marking #{id} as done..."
+  mark_task $(this), id, "done"
 
-mark_task = (icon, id, mark, type) ->
+$(document).on 'click', '[data-action="mark-nothing"]', ->
+  id = $(this).data('itemId')
+  console.log "Marking #{id} as not_marked..."
+  mark_task $(this), id, "not_marked"
+
+mark_task = (icon, id, mark) ->
   $.ajax "/tasks/#{id}",
     type: 'PATCH',
     data: { task: {mark: mark} },
