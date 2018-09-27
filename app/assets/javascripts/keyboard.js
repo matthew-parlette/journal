@@ -9,6 +9,7 @@ $( document ).ready(function() {
   },{
     'type':'keypress',
     'propagate':true,
+    'disable_in_input':true,
     'target':document
   });
 
@@ -20,6 +21,7 @@ $( document ).ready(function() {
   },{
     'type':'keypress',
     'propagate':true,
+    'disable_in_input':true,
     'target':document
   });
 
@@ -31,6 +33,7 @@ $( document ).ready(function() {
   },{
     'type':'keypress',
     'propagate':true,
+    'disable_in_input':true,
     'target':document
   });
 });
