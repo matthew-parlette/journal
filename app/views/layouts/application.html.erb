@@ -27,18 +27,22 @@
           </li>
           <% if user_signed_in? %>
           <% user_categories = Category.where(user: current_user) %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="todayDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Today
-            </a>
-            <div class="dropdown-menu" aria-labelledby="todayDropdown">
-              <a class="dropdown-item" href="#">All</a>
-              <div class="dropdown-divider"></div>
-              <% user_categories.each do |c| %>
+          <li class="nav-item dropdown" >
+            <div class="nav-item btn-group">
+              <%= link_to "Today", home_today_path, class: "btn btn-link text-white" %>
+              <button type="button" class="btn btn-link dropdown-toggle dropdown-toggle-split text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+                <%= link_to "All", home_today_path, class: "dropdown-item" %>
+                <div class="dropdown-divider"></div>
+                <% user_categories.each do |c| %>
                 <%= link_to c.name, today_category_path(c), class: "dropdown-item" %>
-              <% end %>
+                <% end %>
+              </div>
             </div>
           </li>
+          <!--
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="addDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Add
@@ -49,6 +53,7 @@
               <%= link_to "Note", new_note_path, class: "dropdown-item" %>
             </div>
           </li>
+          -->
           <% end %>
         </ul>
         <!--<form class="form-inline my-2 my-lg-0">

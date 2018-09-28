@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'home/index'
+
+  get 'home/today'
+
   resources :notes
   resources :events
   resources :tasks
