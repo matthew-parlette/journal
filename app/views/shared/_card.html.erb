@@ -1,7 +1,7 @@
 <div class="card" id="<%= item.id %>">
   <div class="card-header" id="heading-<%= item.id %>">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-11">
         <span>
           <% if item.class.name == "Task" %>
             <% if item.not_marked? %>
@@ -21,11 +21,12 @@
             <i class="fa fa-minus fa-fw"></i>
           <% end %>
         </span>
-        <a data-toggle="collapse" data-target="#collapse-<%= item.id %>" aria-expanded="true" aria-controls="collapse-<%= item.id %>">
-          <%= item.name %>
-        </a>
+        <%= render_markdown(item.name) %>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-1">
+        <a data-toggle="collapse" data-target="#collapse-<%= item.id %>" aria-expanded="true" aria-controls="collapse-<%= item.id %>">
+          <i class="fa fa-fw fa-bars"></i>
+        </a>
       </div>
     </div>
   </div>
@@ -55,6 +56,13 @@
       Status: <b>Active</b>
       <% end %>
       <br><br>
+      <% if item.class.name == "Task" %>
+      <%= link_to "Edit", edit_task_path(item) %>
+      <% elsif item.class.name == "Event" %>
+      <%= link_to "Edit", edit_event_path(item) %>
+      <% elsif item.class.name == "Note" %>
+      <%= link_to "Edit", edit_note_path(item) %>
+      <% end %>
     </div>
   </div>
 </div>

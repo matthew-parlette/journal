@@ -10,6 +10,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'rails-controller-testing'
 gem 'font-awesome-rails'
+gem 'redcarpet'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
