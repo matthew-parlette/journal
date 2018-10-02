@@ -22,6 +22,7 @@
           <% end %>
         </span>
         <%= render_markdown(item.name) %>
+        <%= link_to "<i class='fa fa-fw fa-tags'></i> #{item.category.name}".html_safe, category_path(item.category), class: "badge badge-pill badge-light" %>
       </div>
       <div class="col-sm-1">
         <a data-toggle="collapse" data-target="#collapse-<%= item.id %>" aria-expanded="true" aria-controls="collapse-<%= item.id %>">
