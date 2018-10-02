@@ -16,10 +16,17 @@
 //= require popper
 //= require bootstrap
 //= require shortcut
+//= require jquery-ui
+//= require select-to-togglebutton
 //= require_tree .
 
 $.ajaxSetup({
   headers: {
     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
   }
+});
+
+$(function() {
+  $('.datepicker').datepicker();
+  $('.togglebutton').togglebutton();
 });
