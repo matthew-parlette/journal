@@ -19,7 +19,7 @@
   <div class="form-group row">
     <%= form.label :date, class: "col-sm-2 col-form-label" %>
     <%# form.date_select :date, id: :task_date, class: "datepicker" %>
-    <%= form.text_field :date, class: "form-control col-sm-10 datepicker", :value=>"" %>
+    <%= form.text_field :date, class: "form-control col-sm-10 datepicker", value: task.date %>
   </div>
 
   <div class="form-group row">

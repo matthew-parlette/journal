@@ -27,6 +27,8 @@ $.ajaxSetup({
 });
 
 $(function() {
-  $('.datepicker').datepicker();
+  $('.datepicker').datepicker({
+    dateFormat: "yy-mm-dd"
+  });
   $('.togglebutton').togglebutton();
 });
