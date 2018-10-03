@@ -26,9 +26,12 @@ $.ajaxSetup({
   }
 });
 
-$(function() {
+var ready = function() {
   $('.datepicker').datepicker({
     dateFormat: "yy-mm-dd"
   });
   $('.togglebutton').togglebutton();
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
