@@ -1,7 +1,7 @@
 <div class="card" id="<%= item.id %>">
   <div class="card-header" id="heading-<%= item.id %>">
     <div class="row">
-      <div class="col-sm-11">
+      <div class="col-sm-10">
         <span>
           <% if item.class.name == "Task" %>
             <% if item.not_marked? %>
@@ -23,6 +23,13 @@
         </span>
         <%= render_markdown(item.name) %>
         <%= link_to "<i class='fa fa-fw fa-tags'></i> #{item.category.name}".html_safe, category_path(item.category), class: "badge badge-pill badge-light" %>
+      </div>
+      <div class="col-sm-1">
+        <% if item.date.nil? %>
+        <a class="" data-action="schedule" data-item-id="<%= item.id %>" data-date="<%= Date.today %>">
+          <i class="fa fa-fw fa-calendar"></i>
+        </a>
+        <% end %>
       </div>
       <div class="col-sm-1">
         <a data-toggle="collapse" data-target="#collapse-<%= item.id %>" aria-expanded="true" aria-controls="collapse-<%= item.id %>">

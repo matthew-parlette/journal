@@ -27,10 +27,33 @@ $(document).on 'click', '[data-action="mark-cancelled"]', ->
   console.log "Marking #{id} as cancelled..."
   mark_task $(this), id, "cancelled"
 
+$(document).on 'click', '[data-action="schedule"]', ->
+  id = $(this).data('itemId')
+  date = $(this).data('date')
+  console.log "Scheduling #{id} for #{date}..."
+  schedule $(this), id, date
+
 mark_task = (icon, id, mark) ->
   $.ajax "/tasks/#{id}",
     type: 'PATCH',
     data: { task: {mark: mark} },
+    dataType: 'json',
+    beforeSend: ->
+      icon.removeClass
+      icon.addClass "fa fa-spinner fa-pulse fa-fw"
+    error: (jqXHR, textStatus, errorThrown) ->
+      console.log "Error updating task #{id}"
+    success: (data, textStatus, jqXHR) ->
+      console.log "Successfully updated task #{id}"
+      $.get "/tasks/#{id}.js", ((responseText) ->
+        $("##{id}").html responseText
+        return
+      ), 'html'
+
+schedule = (icon, id, date) ->
+  $.ajax "/tasks/#{id}",
+    type: 'PATCH',
+    data: { task: {date: date} },
     dataType: 'json',
     beforeSend: ->
       icon.removeClass
