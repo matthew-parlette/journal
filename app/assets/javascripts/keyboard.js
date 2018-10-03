@@ -36,4 +36,16 @@ $( document ).ready(function() {
     'disable_in_input':true,
     'target':document
   });
+
+  // Navigation
+  shortcut.add("Shift+H",function() {
+    // console.log("Navigating to root...");
+    // window.open(r); // Popup
+    window.location = "/";
+  },{
+    'type':'keypress',
+    'propagate':true,
+    'disable_in_input':true,
+    'target':document
+  });
 });
